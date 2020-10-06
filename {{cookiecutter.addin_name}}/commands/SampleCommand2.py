@@ -3,10 +3,7 @@ import adsk.fusion
 import adsk.cam
 
 # Import the entire apper package
-import apper
-
-# Alternatively you can import a specific function or class
-from apper import AppObjects
+from ..apper import apper
 
 
 # Class for a Fusion 360 Command
@@ -16,17 +13,17 @@ class SampleCommand2(apper.Fusion360CommandBase):
 
     # Run whenever a user makes any change to a value or selection in the addin UI
     # Commands in here will be run through the Fusion processor and changes will be reflected in  Fusion graphics area
-    def on_preview(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
+    def on_preview(self, command, inputs, args, input_values):
         pass
 
     # Run after the command is finished.
     # Can be used to launch another command automatically or do other clean up.
-    def on_destroy(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, reason, input_values):
+    def on_destroy(self, command, inputs, reason, input_values):
         pass
 
     # Run when any input is changed.
     # Can be used to check a value and then update the add-in UI accordingly
-    def on_input_changed(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, changed_input, input_values):
+    def on_input_changed(self, command, inputs, changed_input, input_values):
 
         # Selections are returned as a list so lets get the first one
         all_selections = input_values.get('selection_input_id', None)
@@ -40,7 +37,7 @@ class SampleCommand2(apper.Fusion360CommandBase):
 
     # Run when the user presses OK
     # This is typically where your main program logic would go
-    def on_execute(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
+    def on_execute(self, command, inputs, args, input_values):
 
         # Get the values from the user input
         the_value = input_values['value_input_id']
@@ -54,7 +51,7 @@ class SampleCommand2(apper.Fusion360CommandBase):
         the_selection_type = the_first_selection.objectType
 
         # Get a reference to all relevant application objects in a dictionary
-        ao = AppObjects()
+        ao = apper.AppObjects()
 
         converted_value = ao.units_manager.formatInternalValue(the_value, 'in', True)
 
@@ -70,9 +67,9 @@ class SampleCommand2(apper.Fusion360CommandBase):
     # Typically used to create and display a command dialog box
     # The following is a basic sample of a dialog UI
 
-    def on_create(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs):
+    def on_create(self, command, inputs):
 
-        ao = AppObjects()
+        ao = apper.AppObjects()
 
         # Create a default value using a string
         default_value = adsk.core.ValueInput.createByString('1.0 in')
@@ -92,8 +89,8 @@ class SampleCommand2(apper.Fusion360CommandBase):
         inputs.addTextBoxCommandInput('text_box_input_id', 'Selection Type: ', 'Nothing Selected', 1, True)
 
         # Create a Drop Down
-        drop_down_input = inputs.addDropDownCommandInput('drop_down_input_id', '*Sample* Drop Down',
-                                                         adsk.core.DropDownStyles.TextListDropDownStyle)
+        drop_style = adsk.core.DropDownStyles.TextListDropDownStyle
+        drop_down_input = inputs.addDropDownCommandInput('drop_down_input_id', '*Sample* Drop Down', drop_style)
         drop_down_items = drop_down_input.listItems
         drop_down_items.add('List_Item_1', True, '')
         drop_down_items.add('List_Item_2', False, '')

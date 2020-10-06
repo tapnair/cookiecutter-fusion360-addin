@@ -1,4 +1,4 @@
-import apper
+from ..apper import apper
 
 
 class SampleCommandEvent(apper.Fusion360CommandEvent):

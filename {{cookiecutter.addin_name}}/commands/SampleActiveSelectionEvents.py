@@ -1,7 +1,6 @@
 import adsk.core
-import traceback
 
-import apper
+from ..apper import apper
 
 
 class SampleActiveSelectionEvent(apper.Fusion360ActiveSelectionEvent):

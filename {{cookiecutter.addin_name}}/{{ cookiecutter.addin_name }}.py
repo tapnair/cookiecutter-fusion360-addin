@@ -1,32 +1,30 @@
 import adsk.core
 import traceback
 
-from.startup import setup_app, cleanup_app, get_app_path
-setup_app(__file__)
 
 try:
-    import config
-    import apper
+    from . import config
+    from .apper import apper
 
+    # ************Samples**************
     # Basic Fusion 360 Command Base samples
-    from commands.SampleCommand1 import SampleCommand1
-    from commands.SampleCommand2 import SampleCommand2
+    from .commands.SampleCommand1 import SampleCommand1
+    from .commands.SampleCommand2 import SampleCommand2
 
     # Palette Command Base samples
-    from commands.SamplePaletteCommand import SamplePaletteSendCommand, SamplePaletteShowCommand
+    from .commands.SamplePaletteCommand import SamplePaletteSendCommand, SamplePaletteShowCommand
 
     # Various Application event samples
-    from commands.SampleCustomEvent import SampleCustomEvent
-    from commands.SampleDocumentEvents import SampleDocumentEvent1, SampleDocumentEvent2
-    from commands.SampleWorkspaceEvents import SampleWorkspaceEvent
-    from commands.SampleWebRequestEvent import SampleWebRequestOpened
-    from commands.SampleCommandEvents import SampleCommandEvent
-    from commands.SampleActiveSelectionEvents import SampleActiveSelectionEvent
+    from .commands.SampleCustomEvent import SampleCustomEvent
+    from .commands.SampleDocumentEvents import SampleDocumentEvent1, SampleDocumentEvent2
+    from .commands.SampleWorkspaceEvents import SampleWorkspaceEvent
+    from .commands.SampleWebRequestEvent import SampleWebRequestOpened
+    from .commands.SampleCommandEvents import SampleCommandEvent
+    from .commands.SampleActiveSelectionEvents import SampleActiveSelectionEvent
 
-
-# Create our addin definition object
+    # Create our addin definition object
     my_addin = apper.FusionApp(config.app_name, config.company_name, False)
-    my_addin.root_path = get_app_path(__file__)
+    my_addin.root_path = config.app_path
 
     # Creates a basic Hello World message box on execute
     my_addin.add_command(
@@ -102,24 +100,19 @@ try:
     ui = app.userInterface
 
     # Uncomment as necessary.  Running all at once can be overwhelming :)
-    # my_addin.add_custom_event("{{ cookiecutter.addin_name }}_message_system", SampleCustomEvent1)
-
+    # my_addin.add_custom_event("{{ cookiecutter.addin_name }}_message_system", SampleCustomEvent)
     # my_addin.add_document_event("{{ cookiecutter.addin_name }}_open_event", app.documentActivated, SampleDocumentEvent1)
     # my_addin.add_document_event("{{ cookiecutter.addin_name }}_close_event", app.documentClosed, SampleDocumentEvent2)
-
-    # my_addin.add_workspace_event("{{ cookiecutter.addin_name }}_workspace_event", ui.workspaceActivated, SampleWorkspaceEvent1)
-
+    # my_addin.add_workspace_event("{{ cookiecutter.addin_name }}_workspace_event", ui.workspaceActivated, SampleWorkspaceEvent)
     # my_addin.add_web_request_event("{{ cookiecutter.addin_name }}_web_request_event", app.openedFromURL, SampleWebRequestOpened)
-
     # my_addin.add_command_event("{{ cookiecutter.addin_name }}_command_event", app.userInterface.commandStarting, SampleCommandEvent)
-
     # my_addin.add_command_event("{{ cookiecutter.addin_name }}_active_selection_event", ui.activeSelectionChanged, SampleActiveSelectionEvent)
 
 except:
     app = adsk.core.Application.get()
     ui = app.userInterface
     if ui:
-        ui.messageBox('Initialization: {}'.format(traceback.format_exc()))
+        ui.messageBox('Initialization Failed: {}'.format(traceback.format_exc()))
 
 # Set to True to display various useful messages when debugging your app
 debug = False
@@ -131,4 +124,4 @@ def run(context):
 
 def stop(context):
     my_addin.stop_app()
-    cleanup_app(__file__)
+
