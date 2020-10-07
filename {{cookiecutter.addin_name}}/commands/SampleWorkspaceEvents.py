@@ -2,7 +2,7 @@ import adsk.core
 import adsk.fusion
 
 from ..apper import apper
-
+from .. import config
 
 class SampleWorkspaceEvent(apper.Fusion360WorkspaceEvent):
 

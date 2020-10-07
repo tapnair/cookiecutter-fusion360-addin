@@ -2,7 +2,7 @@ import adsk.core
 import adsk.fusion
 
 from ..apper import apper
-
+from .. import config
 
 class SampleDocumentEvent1(apper.Fusion360DocumentEvent):
 

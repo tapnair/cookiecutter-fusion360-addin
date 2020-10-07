@@ -4,7 +4,7 @@ import adsk.cam
 
 # Import the entire apper package
 from ..apper import apper
-
+from .. import config
 
 # Class for a Fusion 360 Command
 # Place your program logic here

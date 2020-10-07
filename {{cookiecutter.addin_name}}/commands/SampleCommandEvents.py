@@ -1,5 +1,5 @@
 from ..apper import apper
-
+from .. import config
 
 class SampleCommandEvent(apper.Fusion360CommandEvent):
 

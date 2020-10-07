@@ -5,7 +5,7 @@ import adsk.cam
 import json
 
 from ..apper import apper
-
+from .. import config
 
 # Class for a Fusion 360 Palette Command
 class SamplePaletteShowCommand(apper.PaletteCommandBase):

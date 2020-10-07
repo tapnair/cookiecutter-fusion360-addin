@@ -1,7 +1,7 @@
 import adsk.core
 
 from ..apper import apper
-
+from .. import config
 
 class SampleActiveSelectionEvent(apper.Fusion360ActiveSelectionEvent):
 

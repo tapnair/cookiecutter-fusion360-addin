@@ -5,7 +5,7 @@ import json
 import time
 
 from ..apper import apper
-
+from .. import config
 
 class SampleCustomEvent(apper.Fusion360CustomThread):
 

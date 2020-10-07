@@ -1,5 +1,5 @@
 from ..apper import apper
-
+from .. import config
 
 class SampleWebRequestOpened(apper.Fusion360WebRequestEvent):
 
