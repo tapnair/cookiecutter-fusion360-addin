@@ -1,6 +1,7 @@
 import adsk.core
 import traceback
 
+import os
 
 try:
     from . import config
@@ -70,7 +71,7 @@ try:
             'command_promoted': True,
             'palette_id': 'sample_palette',
             'palette_name': 'Sample Fusion 360 HTML Palette',
-            'palette_html_file_url': 'commands/palette_html/{{ cookiecutter.addin_name }}.html',
+            'palette_html_file_url': os.path.join('commands', 'palette_html', '{{ cookiecutter.addin_name }}.html'),
             'palette_use_new_browser': True,
             'palette_is_visible': True,
             'palette_show_close_button': True,
